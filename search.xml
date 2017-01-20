@@ -4,17 +4,74 @@
   
     
     <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>http://blog.30cm.net/2017/01/20/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+      <title><![CDATA[當個部落客！「 Hexo 」手把手教學 （上卷）]]></title>
+      <url>http://blog.30cm.net/2017/01/21/%E7%95%B6%E5%80%8B%E9%83%A8%E8%90%BD%E5%AE%A2%EF%BC%81%E3%80%8C-Hexo-%E3%80%8D%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E5%AD%B8/</url>
+      <content type="html"><![CDATA[<!-- toc -->
+<ul>
+<li><a href="#引言">引言</a></li>
+<li><a href="#起手式-使用github-page-搭建-hexo">起手式 [ 使用Github Page 搭建 Hexo ]</a></li>
+<li><a href="#建立-github-page-環境">建立 Github Page 環境</a></li>
+<li><a href="#建立-hexo-環境">建立 Hexo 環境</a></li>
+</ul>
+<!-- tocstop -->
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>研究了許久，終於發現為何各位<span style=" border: 0px;color: #fff;background: #f44336;    border: 1px solid #f44336;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 0 1px;">30cm</span>、<span style=" border: 0px;color: #fff;background: #f44336;    border: 1px solid #f44336;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 0 1px;">E cup</span>的程序猿、攻城獅大大們要自己寫個人網站呢？全部都是因為<del>這樣就可以走在時尚尖端</del>，為了有個地方能夠「分享生活中的觀察」以及「記錄個人所學及經歷」。所以需要類似部落格功能的網站，身為專業的<span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 0 1px;">攻城獅</span>，一定要潮到出水的自己建立一個才行，講了這麼多，現在要回到正題：</p>
+<h3 id="起手式-使用github-page-搭建-hexo"><a href="#起手式-使用Github-Page-搭建-Hexo" class="headerlink" title="起手式 [ 使用Github Page 搭建 Hexo ]"></a>起手式 [ 使用Github Page 搭建 Hexo ]</h3><p><img src="https://lh3.googleusercontent.com/-nBJskXQv49w/WIJEgkM08QI/AAAAAAAAABA/vliEuVfEpV01qCnJaYOVEW7pTh3-m95YACLcB/s800/5bb7J7NT+%25281%2529.png" alt="enter image description here" title="5bb7J7NT &#40;1&#41;.png"></p>
+<p>首先起手式很簡單，你必須要先有一個可以放網站的空間！總不好部落格<del>常常出事</del>，這樣就不能朝一個專業的寫手邁進了！你說是吧。</p>
+<p>所以為了要讓我們可以專心寫個網站而不讓 <strong>煩人的主機問題困擾我們</strong>，我們先從最簡單又免費的<span style=" border: 0px;color: #000;background: #f4dd36;    border: 1px solid #f4dd36;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 0 1px;">Github Page</span> 開始用起吧！</p>
+<p>如果你本身懂一點資訊的話，可以直接參考原始資料來實作：</p>
+<ol>
+<li><a href="https://hexo.io/zh-tw/" target="_blank" rel="external">Hexo 官方網站</a></li>
+<li><a href="https://hexo.io/themes/" target="_blank" rel="external">選一個樣式吧！ Hexo 官方主題樣式 </a></li>
+<li><a href="https://oawan.me/2016/easy-hexo-easy-blog/" target="_blank" rel="external">新樂街的三角窗  [Hexo] 快速上手 Hexo 網誌框架</a></li>
+<li><a href="https://github.com/viosey/hexo-theme-material" target="_blank" rel="external">如果你喜歡我的主題的話！ 就決定是你了Material</a></li>
+</ol>
+<p>懶得想的朋友請，請服用以下懶人包，手把手教你搭建個人網站唷！</p>
+<h3 id="建立-github-page-環境"><a href="#建立-Github-Page-環境" class="headerlink" title="建立 Github Page 環境"></a>建立 Github Page 環境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Step 1 註冊一個 Github 帳號</div></pre></td></tr></table></figure>
+<p><del>怎麼註冊在這邊就不再贅述</del>   請右轉  <a href="https://github.com/" target="_blank" rel="external">Github</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Step 2 搞定 Github Page !</div></pre></td></tr></table></figure>
+<p>靜態網頁好夥伴 Github Pages ！ 它是可以給用戶編寫、託管在 Github 上的靜態網頁 。在申請玩 Github 帳號之後，可以看正中間有一個大大的 Start a Project<br>給他大力按下去就對了！<br>如圖：<br><img src="https://lh3.googleusercontent.com/-HUoYkHbeykE/WIJJoGs_lCI/AAAAAAAAABc/877qo4Al7nMwIh37Q7KG8SDVDjD2RsSEgCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-21+%25E4%25B8%258A%25E5%258D%25881.20.25.png" alt="enter image description here" title="螢幕快照 2017-01-21 上午1.20.25.png"></p>
+<p>將專案名稱取名為 username.github.io 並按下最下方的 Create repository</p>
+<p>P.S  本文章 yourname 或 username 只的就是你的 Github 帳號唷！</p>
+<p><img src="https://lh3.googleusercontent.com/-Ls_WpPUorxs/WIJJ3SkahKI/AAAAAAAAABk/AeRVegb-txwcErQal213Hzs3r3NE8nEmACLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-21+%25E4%25B8%258A%25E5%258D%25881.20.30.png" alt="enter image description here" title="螢幕快照 2017-01-21 上午1.20.30.png"></p>
+<p>恭喜你建立好 Github Pages 的專案了！<br>現在就馬上點進 <a href="http://username.github.io" target="_blank" rel="external">http://username.github.io</a> ，你會發現 <del>有東西</del> 才怪！<br>哦原來是我還沒把東西放上來呀！沒錯 Github Pages的預先設置就是這麼簡單 ，接下來要部署 Hexo上來了！部署完之後才會有東西唷！</p>
+<h3 id="建立-hexo-環境"><a href="#建立-Hexo-環境" class="headerlink" title="建立 Hexo 環境"></a>建立 Hexo 環境</h3><p>這裏有一個前提，我是用 Mac 電腦，如果是 <del>微軟</del> 的話，出口在直走右轉唷！關鍵字是 windows 安装 hexo，好接下來開始吧！</p>
+<p>而 Hexo 需要安裝以下系統環境來支援：</p>
+<p>1.<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a><br>2.<a href="https://git-scm.com/" target="_blank" rel="external">Git</a><br>3.<a href="https://itunes.apple.com/hk/app/xcode/id497799835?l=zh&amp;mt=12" target="_blank" rel="external">Xcode ( Mac用戶必須安裝 )</a></p>
+<p>安裝好了之後我們可以開啟我們的終端機，並輸入以下指令安裝 Hexo：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<p>安裝完之後我們便可以來建立網站了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Step 3 開啟終端機依序使用以下指令 :</div><div class="line"></div><div class="line">$ hexo init yourname ( 初始化新的 Hexo )</div><div class="line">$ cd yourname  ( 進入您剛剛建立的 Hexo 資料夾當中 )</div><div class="line">$ npm install （ 安裝 Hexo )</div></pre></td></tr></table></figure>
+<blockquote>
+<p>yourname 就是指在電腦裡的檔案名稱，可以隨意取，例如「myhexoblog」</p>
+</blockquote>
+<p>這樣就完成安裝了！</p>
+<p>接下來就要開始設定 Hexo 讓你的網站可以個人化，符合建立自己網站的宗旨唷！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Step 4 設定 Hexo</div></pre></td></tr></table></figure>
+<p>進入您 Hexo 主目錄下之後，先找到_config.yml 這個檔案！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">title: 不為繁華易匠心 (輸入您的標題)</div><div class="line">subtitle: 匠心，是傾注於作品之中的精神、情感、乃至魂魄。 （輸入您的至理名言）</div><div class="line">description:(輸入您的網站描述)</div><div class="line">author: 王性驊 （輸入您的姓名）</div><div class="line">language: zh-TW （輸入您所使用的語言）</div><div class="line">timezone: (留空可以使用系統時間！)</div></pre></td></tr></table></figure>
+<p>這樣就第一步完成您的設定了！<br>接下來，要找到上傳至 github 的設定，使用「搜尋」找出 deploy:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">   type: git</div><div class="line">   repo: https://github.com/username/username.github.io.git</div><div class="line">   branch: master</div></pre></td></tr></table></figure>
+<p>username 就是指你自己的github帳號，記得改對，然後按存檔。</p>
+<p>然後回到你的終端機，先進入 yourname 資料夾<br>並依序輸入以下指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean (清除快取)</div><div class="line">$ hexo g （建立靜態檔案）</div><div class="line">$ hexo d （在 Github Page 上顯示）</div></pre></td></tr></table></figure>
+<p>這三個指令就是幫我們把網站自動生成並發佈到 <a href="http://username.github.io" target="_blank" rel="external">http://username.github.io</a> 上的指令，完成後應該就可以打開瀏覽器看看自己網站發布成功的樣子囉！</p>
+<blockquote>
+<p>消化一下吧！欲知更詳細的教學，請見下回分曉！</p>
+</blockquote>
+<p>預告一下：<br>下回！建立後端編輯環境，以及安裝主題還有討論區！</p>
+<p>敬請期待～～</p>
 ]]></content>
     </entry>
     
