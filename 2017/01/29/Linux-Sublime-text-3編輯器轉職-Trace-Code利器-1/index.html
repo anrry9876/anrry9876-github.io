@@ -10,7 +10,7 @@
     
     <title>
         
-            關於王驊 | 
+            [Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇） | 
         
         不為繁華易匠心
     </title>
@@ -48,7 +48,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://blog.30cm.net">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="關於王驊 | 不為繁華易匠心">
+    <meta property="og:title" content="[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇） | 不為繁華易匠心">
     <meta property="og:description" content="身為一個專業的攻城獅，隨身攜帶電腦也是很正常的事、python、php、c、樹莓派、Arduino、以及機器學習的大小事">
 
     <!--[if lte IE 9]>
@@ -202,6 +202,41 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引言"><span class="post-toc-number">1.</span> <span class="post-toc-text">＃引言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sublime-text3-打造一個編譯環境"><span class="post-toc-number">2.</span> <span class="post-toc-text">＃Sublime Text3 打造一個編譯環境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安裝套件的開始"><span class="post-toc-number">3.</span> <span class="post-toc-text">＃安裝套件的開始</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安裝-ctags-工具"><span class="post-toc-number">4.</span> <span class="post-toc-text">＃安裝 Ctags 工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#取代-grep-的-cscope"><span class="post-toc-number">5.</span> <span class="post-toc-text"># 取代 Grep 的 Cscope ！</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用套件"><span class="post-toc-number">6.</span> <span class="post-toc-text">＃常用套件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#結語"><span class="post-toc-number">7.</span> <span class="post-toc-text"># 結語</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
 
 <!-- Layouts -->
 
@@ -216,10 +251,10 @@
     <!-- Paradox Post Header -->
     
         <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://lh3.googleusercontent.com/-sWbJNFDnObw/WIIWYNQZ_7I/AAAAAAAAAAg/4K577nzSv34XjNQZAaHKT6V16YtwrQLNQCLcB/s0/daily_pic1.png)">
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://lh3.googleusercontent.com/6Vqy_X1aF76NNuk1A1ml6rSMKLdJryMu1wU8Ywf7NHWxysgaLkLrUkCrM04is8ewHi_QOJo=s0)">
     
             <p class="article-headline-p">
-                關於王驊
+                [Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）
             </p>
         </div>
 
@@ -238,7 +273,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>王性驊</strong>
-        <span>1月 20, 2017</span>
+        <span>1月 29, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -262,7 +297,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/sublime/">sublime</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/攻城獅的寫作練習/">攻城獅的寫作練習</a>
     </ul>
     
 
@@ -289,7 +324,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=關於王驊&url=http://blog.30cm.net//about/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）&url=http://blog.30cm.net//2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -298,7 +333,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=關於王驊&url=http://blog.30cm.net//about/index.html&via=王性驊" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）&url=http://blog.30cm.net//2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html&via=王性驊" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -307,7 +342,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.30cm.net//about/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.30cm.net//2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -316,7 +351,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://blog.30cm.net//about/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://blog.30cm.net//2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -325,7 +360,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.30cm.net//about/index.html&title=關於王驊" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.30cm.net//2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html&title=[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -334,7 +369,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=不為繁華易匠心&title=關於王驊&summary=身為一個專業的攻城獅，隨身攜帶電腦也是很正常的事、python、php、c、樹莓派、Arduino、以及機器學習的大小事&pics=http://blog.30cm.net/img/favicon.png&url=http://blog.30cm.net/about/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=不為繁華易匠心&title=[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）&summary=身為一個專業的攻城獅，隨身攜帶電腦也是很正常的事、python、php、c、樹莓派、Arduino、以及機器學習的大小事&pics=http://blog.30cm.net/img/favicon.png&url=http://blog.30cm.net/2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -352,24 +387,69 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="關於這裡"><a href="#關於這裡" class="headerlink" title="# 關於這裡."></a># 關於這裡.</h1><p>這裡是王驊的個人部落格，是「不為繁華易匠心」。</p>
-<p>生活周遭<br>如果可以再多一點基礎美感<br>世界不知道會變成怎樣<br>只要是人都喜歡看美的事物<br>雖然我是一隻<span style=" border: 0px;color: #fff;background: #f44336;    border: 1px solid #f44336;
-    border-radius: 4px;
-    padding: 2px 5px;
-    margin: 0 1px;">攻城獅</span><br>往往被認為是最沒有美感的一群<br>但我很喜歡美麗的事物<br>與有溫度的<span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;
-    border-radius: 4px;
-    padding: 2px 5px;
-    margin: 0 1px;">程式碼</span></p>
-<p>匠心<br>是傾注於作品中的精神、情感乃至神魂</p>
-<p>我希望我寫的每一個作品<br>無論在過多少年的更迭<br>都可以將我的溫度注入<br>讓她擁有靈魂<br>且不忘我的初衷</p>
-<p>走過這個地方，你會看到我所熱愛的一切，<br>那些關於貓、程式、美食與生活的大小事。</p>
-<h1 id="關於我"><a href="#關於我" class="headerlink" title="# 關於我."></a># 關於我.</h1><p>嗨！我是王驊，也可以叫我 Daniel，<br>我是<span style=" border: 0px;color: #fff;background: #f44336;    border: 1px solid #f44336;
-    border-radius: 4px;
-    padding: 2px 5px;
-    margin: 0 1px;">貓奴</span>也是<span style=" border: 0px;color: #fff;background: #f44336;    border: 1px solid #f44336;
-    border-radius: 4px;
-    padding: 2px 5px;
-    margin: 0 1px;">攻城獅</span>！<br>如果對我有興趣想聊聊，都歡迎留言或來信喔！</p>
+        <blockquote>
+<p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">貼心小提醒</span>！網路上關於 Sublime Text 的教學真的很多，優秀的大大們也寫了很多深具質量的好教學，這篇其實只是小弟我的備忘錄而已 !</p>
+</blockquote>
+<hr>
+<h3 id="引言"><a href="#＃引言" class="headerlink" title="＃引言"></a>＃引言</h3><p>小弟最近在追蹤 <code>CUPS</code> 的程式碼，原本一開始笨笨的，找一些 function 都要一個檔案一個檔案得開，工作效率實在是不敢恭維，經過高人指點，也看了<a href="https://docs.google.com/file/d/0B2jE5mgB1K4TblhMRmdnRUg2NFE/edit" target="_blank" rel="external">真男人，就該用VIM</a>  以及  <a href="http://stenlyho.blogspot.tw/2010/03/vim-trinity-source-explorer-tag-list.html" target="_blank" rel="external">史丹利部落</a> 後，深深地覺得 <del>VIM</del> 這位編輯器之神實在不是我的菜，所以決定還是用我最趁手的編輯器 <code>Sublime Text</code> 來實現這項功能，找了許久 ，終於實踐了Sublime Text 可以 Trace Code 了，接下來，我們就來看看是怎麼實現的吧 !</p>
+<hr>
+<h3 id="sublime-text3-打造一個編譯環境"><a href="#＃Sublime-Text3-打造一個編譯環境" class="headerlink" title="＃Sublime Text3 打造一個編譯環境"></a>＃Sublime Text3 打造一個編譯環境</h3><p>眾所周知 Sublime Text 是一款編輯器，原本是用來開發網頁用的，而且他是 <del>要錢的</del>，只是因為開發者真的很佛心，想要讓更多人可以使用，就開放無限免費試用！<span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">請大家有閒錢一定要支持一下這位開發者</span>，偏題了！ 這款編輯器，除了很美之外，更有很多插件可以使用，而且對於習慣 VIM 的朋友來說，他也有 VIM 的操作模式可以選擇，這是我選擇這款編輯器作為寫程式工具的最大原因。</p>
+<p>但是也因為他是圖形化介面的，在 Linux 環境下，寫完程式需要切換到<span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">終端機</span>才可以編譯，稍嫌麻煩，偶爾操作會跟不上思維，所以就起了想要把編譯器放入的想法！</p>
+<blockquote>
+<p>偷偷告訴大家其實很簡單！他有內建的功能唷</p>
+</blockquote>
+<p>路徑是 Tools —&gt; Build System 您就可以選擇一些預設的編譯器了，接下來只要按快捷鍵 <code>control + b</code> 就會在下方出現編譯成功的字樣了！</p>
+<p><img src="https://lh3.googleusercontent.com/-3uCyk8RThaE/WIyosj2Z1dI/AAAAAAAAADs/zT_j1ilTsEgnA4VO9TgtZLRx43jXrzRxwCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258810.19.06.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午10.19.06.png"></p>
+<p>如果你有錯誤！也會顯示唷！</p>
+<p><img src="https://lh3.googleusercontent.com/-YvcOl2FmVgU/WIypF3vhaQI/AAAAAAAAAD0/hAuB3XmOnYcaq5z2bMkPnb1y_QUtpkNfgCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258810.21.42.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午10.21.42.png"></p>
+<p>是不是非常的方便？當然如果您想自己添加編譯器的話，也是非常可以的唷！<br>您可以依照系統的不同，修改終端機的參數，並且建立新的編譯系統<br>以 Ubuntu 為例，開啟 Sublime Text 的<br><code>Tools –&gt; Build System –&gt; New Build System</code> </p>
+<p>然後貼入下面的代碼:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;cmd&quot;: [&quot;g++&quot;, &quot;$&#123;file&#125;&quot;, &quot;-o&quot;,&quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;&quot;, &quot;&amp;&quot;, &quot;gnome-terminal&quot;,&quot;-x&quot;, &quot;bash&quot;, &quot;-c&quot;, &quot;g++ &apos;$&#123;file&#125;&apos; -o &apos;$&#123;file_path&#125;/$&#123;file_base_name&#125;&apos; &amp;&amp; &apos;$&#123;file_path&#125;/$&#123;file_base_name&#125;&apos; ;read -n1 -p &apos;press any key to continue.&apos;&quot;],</div><div class="line">    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,</div><div class="line">    &quot;working_dir&quot;: &quot;$&#123;file_path&#125;&quot;,</div><div class="line">    &quot;selector&quot;: &quot;source.c, source.c++&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然後儲存，並且取一個自己喜歡的名字<br>最後在 <code>Tools-&gt;Build System</code> 中選擇即可。<br>如果你貼上去出錯了，沒關係，請到 <a href="https://gist.github.com/Xuanwo/31ac95e82d446db37c2e" target="_blank" rel="external">這裏</a> 尋找答案！</p>
+<hr>
+<h3 id="安裝套件的開始"><a href="#＃安裝套件的開始" class="headerlink" title="＃安裝套件的開始"></a>＃安裝套件的開始</h3><p>首先你需要先安裝最重要的 Key ，如果沒有他你連套件都很難安裝的！就是先在 Sublime Text 中按下 <code>control</code>  + <code>shift</code>  + <code>p</code> 然後鍵入 Package Control: Install Package 就可以安裝套件控制的程式了，以後只要找到這個指令，就可以切換安裝套件的功能出來了喔！</p>
+<hr>
+<h3 id="安裝-ctags-工具"><a href="#＃安裝-Ctags-工具" class="headerlink" title="＃安裝 Ctags 工具"></a>＃安裝 Ctags 工具</h3><blockquote>
+<p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">貼心小提醒</span>！如果您已經傳統用 sudo apt-get install exuberant-ctags 安裝 ctags 工具並無法幫助你在  <del>Sublime Text</del> 裡面使用它唷！</p>
+</blockquote>
+<p>請照著以下步驟使用！</p>
+<ol>
+<li><code>control</code>  + <code>shift</code>  + <code>p</code> 然後鍵入 Package Control: Install Package</li>
+</ol>
+<p><img src="https://lh3.googleusercontent.com/-eO_XIQIwO1A/WIy0cW8BULI/AAAAAAAAAEU/os4vdi7tWW4j-mQyDeF2isJD8ovdRW11ACLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258811.04.23.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午11.04.23.png"></p>
+<p>2.鍵入 Ctags ，選擇 Ctags<br><img src="https://lh3.googleusercontent.com/-bJAJZJa5Vfk/WIy0shzDuQI/AAAAAAAAAEc/wVMocqhh5IIiG3NYRC3FYBf2iIn4zQ91wCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258811.05.21.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午11.05.21.png"></p>
+<p>3.對資料夾 建立/更新 索引檔</p>
+<p><img src="https://lh3.googleusercontent.com/-oaCpQ767-Wo/WIzEoqvTFrI/AAAAAAAAAE8/CRE2HoBP1lAVdebmBkSzEQMcW85q_vN2wCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258811.07.25.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午11.07.25.png"></p>
+<p>4.巡覽！只要標籤你想要找的 Function 就可以在別的檔案中找到唷！（如果有的話）<br><img src="https://lh3.googleusercontent.com/-Rh9X4b7p9Y4/WIzE0hI18AI/AAAAAAAAAFE/6lSHUcMNttkGAr5N9b20HdYRjEhONSqCgCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-28+%25E4%25B8%258B%25E5%258D%258811.07.34.png" alt="enter image description here" title="螢幕快照 2017-01-28 下午11.07.34.png"></p>
+<hr>
+<h3 id="取代-grep-的-cscope"><a href="#取代-Grep-的-Cscope-！" class="headerlink" title="# 取代 Grep 的 Cscope ！"></a># 取代 Grep 的 Cscope ！</h3><p>傳統我們使用 <code>grep -rn &#39;function_name&#39; ./</code>  指令來查找 哪隻程式會呼叫或使用到該變數或函式，但透過cscope 我們不需再用grep了!!!</p>
+<p>透過Package Control:Install Package來安裝cscope後</p>
+<p>1.建立以及更新索引</p>
+<p><img src="https://lh3.googleusercontent.com/-wlF2D3IdgWQ/WIzH5vQob1I/AAAAAAAAAFc/F4ZI-oqhkeE7NjTaCC_dAAQ7_l3BbvppQCLcB/s800/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-01-29+%25E4%25B8%258A%25E5%258D%258812.28.47.png" alt="enter image description here" title="螢幕快照 2017-01-29 上午12.28.47.png"></p>
+<p>2.開心查詢！</p>
+<p><img src="https://lh3.googleusercontent.com/8_Ul8Okz89zp17dGNGRNE2iKx7r6DBwQa2HBy_5ZLoYYRPa_DeqLxXAsTRC42UmLqlfdgko=s800" alt="enter image description here" title="螢幕快照 2017-01-29 上午12.29.23.png"></p>
+<blockquote>
+<p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">貼心小提醒</span>！使用Cscope的功能時，需按 Enter 鍵確定才會執行唷！</p>
+</blockquote>
+<hr>
+<h3 id="常用套件"><a href="#＃常用套件" class="headerlink" title="＃常用套件"></a>＃常用套件</h3><p>1.<a href="https://packagecontrol.io/packages/HighlightWords" target="_blank" rel="external">HighlightWords</a></p>
+<blockquote>
+<p>用來來常駐 (持續性) 的標記某個單詞 (同時也會標記這整個文本裡所有出現的地方, 有助於 trace code),可透過 Control + Alt + H 來 Highlight 游標目前停留的字詞, 並對同樣的字詞再按一次快速鍵則取消標記, Control + Alt + U 則是取消全部的標記！</p>
+</blockquote>
+<p>2.<a href="https://packagecontrol.io/packages/BracketHighlighter" target="_blank" rel="external">BracketHighlighter</a></p>
+<blockquote>
+<p>Trace code 滿常需要的除了前面標記變數的功能以外, 另外也需要幫忙判斷括號從哪括到哪, 這Plugin就提供了這樣的的幫助。</p>
+</blockquote>
+<p>3.<a href="https://packagecontrol.io/packages/Block%20Cursor%20Everywhere" target="_blank" rel="external">Block Cursor Everywhere</a></p>
+<blockquote>
+<p>在文字編輯器內要尋找鍵盤的游標有時候也是種困擾, 這個 Plugin 可以幫忙在 Vim 指令 mode 下提供 方塊形 的鍵盤游標。</p>
+</blockquote>
+<p>4.AStyleFormatter</p>
+<blockquote>
+<p>Sublime Text 3下的C/C++程式碼整理工具，快捷鍵為 <code>Ctrl</code> + <code>Alt</code> + <code>F</code></p>
+</blockquote>
+<hr>
+<h3 id="結語"><a href="#結語" class="headerlink" title="# 結語"></a># 結語</h3><p>工欲善其事，必先利其器！想要追蹤程式碼之前先把工具磨光，才可以發揮百分百的力量上場殺敵！</p>
 
     
 
@@ -391,7 +471,7 @@
     $('html').ready(function() {
         setTimeout(function() {
             var disqus_config = function () {
-                this.page.url = 'http://blog.30cm.net/about/index.html';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.url = 'http://blog.30cm.net/2017/01/29/Linux-Sublime-text-3編輯器轉職-Trace-Code利器-1/index.html';  // Replace PAGE_URL with your page's canonical URL variable
                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
             };
 
@@ -427,6 +507,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/01/21/當個部落客！「-Hexo-」手把手教學-（下卷）-1/" id="post_nav-older" class="next-content">
+            舊篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -615,6 +703,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
