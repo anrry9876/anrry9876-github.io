@@ -4,6 +4,107 @@
   
     
     <entry>
+      <title><![CDATA[Python 淺談多執行緒]]></title>
+      <url>http://blog.30cm.net/2017/02/01/Python-%E6%B7%BA%E8%AB%87%E5%A4%9A%E5%9F%B7%E8%A1%8C%E7%B7%92-1/</url>
+      <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>多執行緒的應用其實已經行之有年，且寫爬蟲或是自動化的程式時常常會使用到，但在讀 Thread 時常常會與 Process 給搞混，所以為了讓自己更加清楚地瞭解其中的差異，特此紀錄。</p>
+<h1 id="thread-與-process-的差異"><a href="#Thread-與-Process-的差異" class="headerlink" title="Thread 與 Process 的差異"></a>Thread 與 Process 的差異</h1><p>一開始接觸的時候很難弄懂 Process 與 Thread 的差異，但我們現在就來介紹這這對兄弟。文中有一些原文，因為翻得不夠好，所以還是原汁原味的呈現。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li><p>早期電腦系統在一段時間內只允許一個程式執行</p>
+</li>
+<li><p>今日的電腦系統允許許多程式載入到記憶體中並同時執行</p>
+</li>
+<li><p>系統需要對不同程式做更嚴謹的控制與區分</p>
+</li>
+</ul>
+<h2 id="什麼是-process-行程"><a href="#什麼是-Process-行程" class="headerlink" title="什麼是 Process (行程) ?"></a>什麼是 Process (行程) ?</h2><p>事情依照時間先後順序組織排列而成，喂～不是那種 <del>行程</del> 拉，是程式的行程，也就是所謂的 Process。</p>
+<p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Process</span> 的定義是「 正在執行的程式 」！</p>
+<p>一般而言，程式是人類寫出來叫電腦做事情的一種溝通方式，他是靜止的，存在硬碟當中的，而 <span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Process</span> 是指將這段程式載入記憶體當中，然後排入CPU的執行週期當中處理（ 正在 CPU 執行的 Program ）。</p>
+<blockquote>
+<p>簡單來說，程式是一種死的<span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Passive</span> 狀態，行程是活的<span style=" border: 0px;color: #fff;background: #88da5e;border: 1px solid #cef436#88da5e;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Active</span>狀態, 它具備程式計數器來指明下一個要執行的指令。</p>
+</blockquote>
+<p>行程在執行時，狀態（state）會改變。所謂狀態，就是指行程目前的動作：</p>
+<ol>
+<li>新生 (New)            : 行程新產生中。</li>
+<li>執行   (Running)      : 正在執行。</li>
+<li>等待  ( Wating )        : 等待某事發生，例如等待使用者輸入完成。</li>
+<li>就緒  ( Ready )         : 排班中，等待CPU。</li>
+<li>結束  ( Terminated ) : 完成執行。</li>
+</ol>
+<p>各狀態名稱可能隨不同作業系統而相異；任何時間可能有多個行程為等待、就緒，但必定僅有一個行程在執行。</p>
+<h2 id="什麼是-thread-執行緒"><a href="#什麼是-Thread-執行緒" class="headerlink" title="什麼是 Thread (執行緒) ?"></a>什麼是 Thread (執行緒) ?</h2><p>一個執行緒是Process中的一個執行流程，一個行程中可以同時包括多個執行緒，CPU會分配時間片段來處理這些子行程，這使得一個程式可以像是同時間處理多個事務。 </p>
+<p>多執行緒是指從<span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">軟體</span>或者<span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">硬體</span>上實現多個任務併發執行的技術。</p>
+<p>軟體多執行緒:</p>
+<p>作業系統也可以通過快速的在不同執行緒之間進行切換，由於時間間隔很小，來給用戶造成一種多個執行緒同時運行的假象。</p>
+<p>硬體多執行緒:</p>
+<p>具有多個處理器的對稱多處理機（SMP）系統，靠硬體執行執行緒切換來獲得多執行緒能力，作業系統不再負責執行緒切換，以 Sun 的UltraSPARCT為例，可能有4個、6個、8個CPU核心，且每個核心最多可同時執掌、處理4個執行緒，最理想狀態下可同時執行32個執行緒。</p>
+<p>用一個更清楚的圖例表示：</p>
+<p><img src="https://lh3.googleusercontent.com/-IEKzC2RRLZ8/WJAwpH34RcI/AAAAAAAAAGg/74sKHpz8-Mg0rzg0oA-YnbM-bYK_EZ1vwCLcB/s800/%25E6%259C%25AA%25E5%2591%25BD%25E5%2590%258D-1-01.png" alt="enter image description here" title="未命名-1-01.png"></p>
+<ul>
+<li>Time是時間軸，表示時間的經過</li>
+<li>Process 是整隻在執行的程式</li>
+<li>Thread 是在程式中執行的分支</li>
+</ul>
+<hr>
+<p>以下為 2017/01/31 的更新內容 </p>
+<h1 id="為何要用-thread-執行緒"><a href="#為何要用-Thread-執行緒" class="headerlink" title="為何要用 Thread (執行緒) ?"></a>為何要用 Thread (執行緒) ?</h1><p>很多原因！但我會跟你說我只是想要讓我的硬體可以完全 100 %的被使用到，而不是傻傻地慢慢排隊等前一支程式執行完成！但是也會遇到很多問題 ！例如 Python 的程式庫當中，沒有預設給的多執行緒返回值（Return）的方法、或是煩人地多執行緒的主執行緒阻塞等問題，但也因為他不複雜，只要稍加學習就可以簡單的操作並且應用！所以還是利大於弊拉～～</p>
+<h2 id="python-的執行緒函式庫"><a href="#Python-的執行緒函式庫" class="headerlink" title="Python 的執行緒函式庫  ?"></a>Python 的執行緒函式庫  ?</h2><p>Python 的執行緒函式庫無論是Python 2 還是 Python 3  ，都有預設的程式庫分別叫做 Thread 與 Threading ！而我在這邊建議使用 Threading 而不是 thread。 因為，這個程式庫可以提供更高級的執行緒控制，以及可以輸入更多的參數！舉例說明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line"></div><div class="line">def count(i):</div><div class="line">	print &apos;這是一個數字 : &apos;,i</div><div class="line"></div><div class="line">threads = []</div><div class="line"></div><div class="line">for i in range(0,5):</div><div class="line">    threads.append(threading.Thread(target=count, args=(i,))</div><div class="line"></div><div class="line">for t in threads:</div><div class="line">    t.start()</div></pre></td></tr></table></figure></p>
+<p>在這一個範例當中，使用了一種很常見的大量呼叫執行緒的方法，在建立一個執行緒的執行列表之後，批次產生 Thread 實例，最後批次使用呼叫 Thread 實例的 Start () 方法啟動執行緒。</p>
+<p>在這裡需要注意的地方有：</p>
+<ol>
+<li>Thread 對象不需要顯示指定的名稱變數，Thread 預設有識別符號，但其實在每個循環當中，每次使用的變數名稱賦予值後啟動也是可行的！</li>
+<li>產生Thread 實例的時候args參數一定是元祖為單位！（有注意到 i 後面的逗號嗎？）</li>
+</ol>
+<h2 id="thread-阻塞情形"><a href="#Thread-阻塞情形" class="headerlink" title="# Thread 阻塞情形"></a># Thread 阻塞情形</h2><h3 id="舉一個簡單的例子來說明何謂阻塞"><a href="#舉一個簡單的例子來說明何謂阻塞？" class="headerlink" title="舉一個簡單的例子來說明何謂阻塞？"></a>舉一個簡單的例子來說明何謂阻塞？</h3><blockquote>
+<p>如果您一次產生很多個執行緒，而且每個執行緒都需要比較長的時間來運作，例如：<code>Sleep</code> 或是某些需要佔用大量時間才能完成的執行緒的話，您在終端機時會發現，您無法使用 <code>ctrl + c</code> 來取消這隻 Python 程式的執行，這種情形，就是一個簡單的執行緒阻塞情況！</p>
+</blockquote>
+<p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">貼心小叮嚀！</span>如果您嚐試了下面的程式碼，最後不能<code>ctrl + c</code> 的話，請使用<code>ctrl + c</code> ， 之後 kill %1  就可以了，但前提是您沒有其他任務要執行！</p>
+<p>舉個簡單阻塞情況的 Python 程式範例來說：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line">import time</div><div class="line"></div><div class="line">def wait():</div><div class="line">	time.sleep(500)</div><div class="line"></div><div class="line">threads = []</div><div class="line"></div><div class="line">for i in range(0,5):</div><div class="line">	threads.append(threading.Thread(target = wait))</div><div class="line"></div><div class="line">for a in threads:</div><div class="line">	a.start()</div></pre></td></tr></table></figure></p>
+<p>如果您看過 Python threading 的官方文件，你就會了解到這問題一定是 join() 或是  isDaemon()/setDaemon/daemon 的問題，了解了阻塞的情形之後，我們就來深入探討為什麼會造成阻塞的問題！</p>
+<h3 id="簡單介紹阻塞發生的原因"><a href="#簡單介紹阻塞發生的原因" class="headerlink" title="簡單介紹阻塞發生的原因"></a>簡單介紹阻塞發生的原因</h3><ul>
+<li>join() 的方法:  Thread 函式庫中的一個方法，可以將子執行緒，Join到主執行緒當中，對任何一個使用 join() 方法的執行緒呼叫來說，他會使主要的執行緒，等待所有子執行緒完成之後才退出！</li>
+</ul>
+<blockquote>
+<p>關於前面提過的 Process，其實對於一個 Process 來說，可以把一個 Process 當成一個主執行緒，裡面的 Thread 只能算是子執行緒而已！</p>
+</blockquote>
+<ul>
+<li>isDaemon()/setDaemon()/daemon的方法：這是一個類似開關的屬性，也是 Python 官方推薦的屬性，將所有子執行緒的該種屬性，設置為 True ，這個動作將會使得子執行緒隨著主執行緒的退出而退出，不會發生上述問題。（如果是False 的話，主執行緒會自顧自的退出，而子執行緒會繼續自己執行，直到子執行緒結束為止）</li>
+</ul>
+<blockquote>
+<p>貼心小提醒，該屬性預設值為 False ，需要在質性續啟動前就定義！</p>
+</blockquote>
+<h3 id="問題分析"><a href="#問題分析" class="headerlink" title="問題分析"></a>問題分析</h3><p>說到這裡不知道各位看官有沒有發現一些端倪，或是有覺得有哪裡不太合理？在看完阻塞發生的原因之後，為何會出現執行緒阻塞的問題呢？其實這並不叫做阻塞，換個更貼切的說法，在預設的情況下，在主執行緒完成之後，子執行緒並不會退出（預設Daemon屬性為False），這個時候主執行緒已退出，沒有人可以接收 <code>ctrl + c</code> 的這道命令，子執行緒相當於沒有人管理，不知道要接收訊號，所以才沒有辦法停止子執行緒的運作唷！以上面的範例來說，如果您在整個主程式的最後加上 <code>time.sleep(500)</code> 就可以保證主執行緒一直存在，那麼如果您按下<code>ctrl + c</code> 自然而人就可以將訊號告訴個個執行緒，但因為子執行緒沒有設置 Daemon 屬性為 True ，所以子質性續還是會佔用著終端機！</p>
+<blockquote>
+<p>所以合理的推論，是不是使用前面提過的 join 方法可以解決？</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line">import time</div><div class="line"></div><div class="line">def wait():</div><div class="line">    time.sleep(500)</div><div class="line">    </div><div class="line">threads = []</div><div class="line">for i in range(0,5):</div><div class="line">    threads.append(threading.Thread(target=wait)</div><div class="line"></div><div class="line">for t in threads:</div><div class="line">    t.daemon = True</div><div class="line">    t.start()</div><div class="line"></div><div class="line">for t in threads:</div><div class="line">    t.join()</div></pre></td></tr></table></figure>
+<p>您會發現雖然看起來很合理，但是！<br>人生中最討厭的就是這個但是！！！<br><code>ctrl + c</code>  還是不能使用 ＝口＝</p>
+<p>為什麼 ？</p>
+<p>原來是因為 join 的這個方法是預設把所有對主執行緒的輸入訊號都擋掉的！進而保證子執行緒成功被完整執行！所以雖然你成功的呼叫並且使用了 join（）、且設置了 Daemon 屬性，但是鍵盤的訊號還是無法到達主執行緒當中。</p>
+<p>貼心小提醒，這種情況已經跟之前所說的主執行緒無法接收到訊號已經完全不同了！這個時候主要的執行緒才是真正被阻塞了，而之前的情形只是因為主執行緒已經退出而收不到訊號而已！所以就算加上 <code>time.sleep(500)</code> 讓主執行緒繼續活著管理子執行緒，<code>ctrl + c</code> 也已經失去功效了！</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="# 解决方法"></a># 解决方法</h3><p>對於上面兩個例子來說，總是像跟我一樣初學 Python 的新手會犯的錯誤，而且在對於python 這個優雅的語言來說，其實是一種非常不優雅的實作方式！簡直就是有著缺陷的土發煉鋼方法！十分的不推薦，所以其中一種我認為優雅的做法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line">import time</div><div class="line"></div><div class="line">def wait():</div><div class="line">    time.sleep(500)</div><div class="line"></div><div class="line">threads = []</div><div class="line">for i in range(0,5):</div><div class="line">    threads.append(threading.Thread(target=wait)</div><div class="line"></div><div class="line">for t in threads:</div><div class="line">    t.daemon = True</div><div class="line">    t.start()</div><div class="line"></div><div class="line">while threading.activeCount() &gt; 0:</div><div class="line">    time.sleep(1)</div></pre></td></tr></table></figure></p>
+<p>這個方式是透過將 Daemon  這個屬性設置為 True，隨後每一秒檢查一次子執行緒的數目，以確保所有子執行緒都完整執行，這樣相當於手動時做了一個不會將鍵盤訊號阻擋在外的 join() !是不是既優雅又方便？</p>
+<h2 id="獲取返回值-return"><a href="#獲取返回值（-Return-）" class="headerlink" title="獲取返回值（ Return ）"></a>獲取返回值（ Return ）</h2><p>其實這才是使用多執行緒最常遇見的問題，但是很遺憾的官方並沒有預設的方法可以獲得 Return 的值。目前有兩種方式可以達到這種效果：</p>
+<h3 id="寫在-run-當中"><a href="#寫在-run-當中" class="headerlink" title="#寫在 run() 當中"></a>#寫在 run() 當中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line"></div><div class="line">class myThread(threading.Thread):</div><div class="line">    def __init__(self):</div><div class="line">        threading.Thread.__init__(self)</div><div class="line"></div><div class="line">   def run(self):</div><div class="line">        return 1</div><div class="line">t = myThread()</div><div class="line"></div><div class="line">result = t.run()</div><div class="line">print result</div></pre></td></tr></table></figure>
+<p>但這種方法並不優雅，充其量只能說是勉強完成了我們的任務而已，也不夠嚴謹，但對於一般簡單的例子來說，這種方法已經足夠。</p>
+<h3 id="採用佇列"><a href="#採用佇列" class="headerlink" title="# 採用佇列"></a># 採用佇列</h3><p>這才是目前最主流的獲取執行緒返回值的方法。使用 Queue 的函式庫創建佇列，用來儲存多個執行緒之間傳送的數據，在 Python 當中佇列是執行緒安全的，也就是說多個執行緒，同時存取同一個佇列也不會有衝突（當然多重存取資料庫又是另外一個故事了！）</p>
+<p>Python 的佇列有三種進出的方式</p>
+<ol>
+<li>FIFO (先進先出)</li>
+<li>FILO (先進後出)</li>
+<li>優先佇列（由單獨的優先順序參數決定順序）</li>
+</ol>
+<p>舉例說明：</p>
+<blockquote>
+<p>貼心小提醒，關於本例子所舉的「 生產者–消費者」問題，是一個很經典的多執行緒處理時的問題，因篇幅關係，預知詳情請至 <a href="https://zh.wikipedia.org/wiki/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98" target="_blank" rel="external">維基百科–生產者消費者問題</a> 查詢</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> threading</div><div class="line"><span class="keyword">import</span> Queue</div><div class="line"><span class="keyword">import</span> random</div><div class="line"><span class="keyword">import</span> time</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 生產者執行緒</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span><span class="params">(threading.Thread)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, queue)</span>:</span></div><div class="line">        threading.Thread.__init__(self)</div><div class="line">        self.data = queue</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="comment"># 產生10個1~20 間的隨機數字放入佇列當中</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</div><div class="line">            num = random.randint(<span class="number">1</span>,<span class="number">20</span>)</div><div class="line">            <span class="keyword">print</span> <span class="string">"original num"</span>, num</div><div class="line">            self.data.put(num)</div><div class="line">            time.sleep(<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 消費者執行緒</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span><span class="params">(threading.Thread)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, queue)</span>:</span></div><div class="line">        threading.Thread.__init__(self)</div><div class="line">        self.data = queue</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">while</span> self.data.qsize() &gt; <span class="number">0</span>:</div><div class="line">            num = self.data.get()</div><div class="line">            new_num = num * <span class="number">10</span> - <span class="number">1</span></div><div class="line">            <span class="keyword">print</span> <span class="string">'new num'</span>, new_num</div><div class="line">            time.sleep(<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment"># 主程式</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    queue = Queue.Queue()</div><div class="line">    producer = Producer(queue)</div><div class="line">    consumer = Consumer(queue)</div><div class="line">    producer.daemon = <span class="keyword">True</span></div><div class="line">    consumer.daemon = <span class="keyword">True</span></div><div class="line">    producer.start()</div><div class="line">    time.sleep(<span class="number">0.5</span>)</div><div class="line">    consumer.start()</div><div class="line"></div><div class="line">    <span class="keyword">while</span> threading.activeCount() &gt; <span class="number">0</span>:</div><div class="line">        time.sleep(<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p>在這個範例當中，兩個執行緒通過一個佇列，來實作互相交換資料，同樣的方法也可以將一個執行緒當中的返回值給取出，是不是一舉兩得？</p>
+<hr>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>終於寫完了！執行緒真是一道天塹，賣過去的路上只能說是漫漫長路！</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[[Linux] Sublime text 3編輯器轉職 Trace Code利器（基本篇）]]></title>
       <url>http://blog.30cm.net/2017/01/29/Linux-Sublime-text-3%E7%B7%A8%E8%BC%AF%E5%99%A8%E8%BD%89%E8%81%B7-Trace-Code%E5%88%A9%E5%99%A8-1/</url>
       <content type="html"><![CDATA[<blockquote>
