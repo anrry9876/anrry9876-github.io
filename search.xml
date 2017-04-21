@@ -4,6 +4,95 @@
   
     
     <entry>
+      <title><![CDATA[淺談 SQL 與 NoSQL]]></title>
+      <url>http://blog.30cm.net/2017/04/21/%E6%B7%BA%E8%AB%87NoSQL/</url>
+      <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>為了完成我在2017年的年度挑戰 =&gt; 製作智慧語音助手，所以需要自製一個聊天機器人 <b> ChatBot </b> ，而我所選的聊天機器人是配合 Python 使用的<a href="https://github.com/gunthercox/ChatterBot" target="_blank" rel="external">Chatterbot</a>  ，為了使機器人可以接受大量資料的訓練，而需要接觸到  MongoDB ，那廢話不在多說，我們就先從 NoSQL 開始談起吧！</p>
+<h1 id="關於-nosql"><a href="#關於-NoSQL" class="headerlink" title="關於 NoSQL"></a>關於 NoSQL</h1><h2 id="觀念"><a href="#觀念" class="headerlink" title="# 觀念"></a># 觀念</h2><blockquote>
+<p>近幾年，資訊產業無論從 AI 的運用到雲端計算 (Cloud Computing) 、大數據（Big Data）、IoT 等新技術，都脫離不了資料量大的問題，而「NoSQL」便是伴隨著這個主題所產生的技術主題。</p>
+</blockquote>
+<p>Q：為何 NoSQL 可以在關聯式資料庫已經非常普及的情況下異軍突起？</p>
+<blockquote>
+<p><b>Ans </b>: 首先要了解 <strong>SQL 與 NoSQL 在本質上的差異，SQL 的特性，是在同一台機器上面，解決所有的事情，而 NoSQL 是可以利用非常多台不同的電腦來解決問題</strong>，有了這個基本的了解之後，我們就來舉個簡單的例子說明一下！</p>
+<p>誠如Facebook、Google、Twitter這些國外大型網站，這些網站擁有巨量使用者，而每個使用者都會貢獻自己的資料，且不斷成長。為了滿足資料成長的擴充需求，傳統的商用關聯式資料庫借助資料庫叢集技術才能解決，然而這就得投資高額的軟硬體擴充經費。網站業者為了解決如TB等級甚至是PB等級的巨量資料儲存和擴充問題，開始研發各種建置成本較低的分散式開源資料庫。</p>
+</blockquote>
+<hr>
+<h3 id="sql-與-nosql-的比較"><a href="#SQL-與-NoSQL-的比較" class="headerlink" title="SQL 與 NoSQL 的比較"></a>SQL 與 NoSQL 的比較</h3><p>從上述的例子當中，我們可以具體的看出來，巨量資料對技術提出了更多的需求，主要體現在下面這四個方面：</p>
+<ol>
+<li>低延遲的讀寫速度：應用快速地反應能極大地提升用戶的滿意度</li>
+<li>支援巨量的資料與流量：對於搜尋這樣的大型應用程式而言，需要使用PB級的資料量</li>
+<li>分散式的管理</li>
+<li>低廉的成本</li>
+</ol>
+<p>我們大概可以整理出在巨量資料的時代，資料庫上使用的差異，所以就做了一張表格，讓大家看看這兩者的差別</p>
+<p><img src="https://lh3.googleusercontent.com/-LM0pG8qNd98/WPnF1ab01hI/AAAAAAAAADQ/GZyuFkJof0gni7OHQnZc20eaBPwxcZeWQCLcB/s0/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7+2017-04-21+%25E4%25B8%258B%25E5%258D%25884.39.51.png" alt="enter image description here" title="螢幕快照 2017-04-21 下午4.39.51.png"></p>
+<h2 id="定義"><a href="#定義" class="headerlink" title="#定義"></a>#定義</h2><p>在我第一次看到 <strong>NoSQL</strong>的時候，我的直覺反應是不使用 SQL來作為儲存的工具，其實，經過瞭解之後比較像是 Not Only SQL 來解釋，並不是完全捨棄關聯式資料庫，而是根據處理的資料格式來決定什麼時候使用關聯式資料庫，什麼時候使用非關聯式資料庫。NoSQL也就是透過 SQL 的 API 來存取這一種類型的資料庫，以下則是摘錄《<a href="http://nosql-database.org/" target="_blank" rel="external">nosql-database.org</a>》網站對「NoSQL」的定義：</p>
+<blockquote>
+<p>Next Generation Databases mostly addressing some of the points: being non-relational, distributed, open-source and horizontally scalable. </p>
+</blockquote>
+<h2 id="特徵"><a href="#特徵" class="headerlink" title="#特徵"></a>#特徵</h2><ul>
+<li><p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Schema-less</span><br>有著類似 Table 的資料結構，但不需預先定義 schema。<br>每一筆記錄的欄位數量與結構也可以不一樣。<br>紀錄的內容與限制條件主要由應用程式來控管。</p>
+</li>
+<li><p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Shared nothing architecture </span><br>通常採用本地儲存、而非共同儲存設備（如 SAN 或 NAS）。<br>使用一般規格的硬體即可（commodity hardware），故成本也隨之下降。</p>
+</li>
+<li><p>Elasticity<br>只需增加更多主機，便能立即擴充儲存容量與負載能力，所以不需要有停機時間（downtime）。<br>當新節點加入後，資料庫便會開始分配任務給它。</p>
+</li>
+<li><p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Sharding</span><br>不將儲存視為龐大的空間，取而代之的是以「分片」（shard）方式來分割資料集。<br>分片過大時，可採用自動分割方式，或者以程式為每一筆記錄指派所屬的分片ID。</p>
+</li>
+<li><p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">Asynchronous replication</span><br>相較於 RAID （mirroring / stripping）或同步複製機制，NoSQL DB採用的是非同步的複製。<br>又因為資料不會立即複製，所以某些時候可能發生資料遺失的狀況。<br>此外，也沒有 lock 機制以保護某些特定資料。</p>
+</li>
+<li><p><span style=" border: 0px;color: #fff;background: #f44336;border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;">BASE instead of ACID</span><br>由於 NoSQL DB 強調的是效能與可用度，所以「CAP Theorem」會比 RDBMS 的「ACID」更為重要。（注一）</p>
+</li>
+</ul>
+<h2 id="nosql-db-的類型"><a href="#NoSQL-DB-的類型" class="headerlink" title="# NoSQL DB 的類型"></a># NoSQL DB 的類型</h2><h3 id="鍵值儲存-key-value-tuple-store"><a href="#鍵值儲存-Key-Value-Tuple-Store" class="headerlink" title="鍵值儲存 (Key Value / Tuple Store)"></a><strong>鍵值儲存 (Key Value / Tuple Store)</strong></h3><p>這為最常見的 NoSQL 資料庫儲存類型，資料會由一對 key-value的方式儲存，並且根據資料的儲存方式可分為 臨時性、永久性、臨時-永久共存性三種</p>
+<ul>
+<li><p>臨時性<br>此種方式即為將資料全部儲存在記憶體中，儲存與讀取的速度會變得相當的快，但是只要電源拔除資料就會全部消失 (如Memcached、Redis、Velocity、Tuple space)，這類資料庫改成將資料儲存在記憶體中以提高讀取效率，多是作為快取用途，像是快取常用網頁，加快傳遞網頁的速度以減少讀取硬碟的次數。</p>
+</li>
+<li><p>永久性<br>與臨時性相反，這類的資料庫將資料儲存在硬碟上，因此資料會永久保存不會因為電源拔除鳩消失，但在進行資料儲存與讀取上勢必要對硬碟進行 I/O 操作，因此在效能上會與臨時性的方式有些差距。</p>
+</li>
+<li><p>臨時-永久共存性<br>這類的資料庫擷取了臨時與永久性的優點 (如Redis)，透過先將資料全部儲存在記憶體中，以增加讀取/寫入的速度，接下來設定多個門檻 (threshold)，用來決定哪些資料需要寫入到磁碟中，確保資料的永久性，這類型的資料庫特別適合處理陣列類型的資料</p>
+</li>
+</ul>
+<h3 id="文件儲存-document-store"><a href="#文件儲存-Document-Store" class="headerlink" title="文件儲存 (Document Store)"></a><strong>文件儲存 (Document Store)</strong></h3><p>這類型的資料庫有兩個特色：不定義表的結構 以及 可以使用複雜的查詢準則，常見的開源文件資料庫有MongoDB、CouchDB。</p>
+<ul>
+<li><p>不定義表的結構 (非結構化資料)<br>最常見的非結構化資料就是 HTML 網頁，即使不定義表的結構，也可以像是定義了表結構一樣的使用，像是 <head></head>、<body></body> 中所含有的資料段落行數皆不相同 (有連結、圖片、文字等標籤樹狀結構內容)，且不同網頁的內容都不相同，在現在網頁儲存與搜尋索引大增的情況下，這類型的資料庫是對於儲存網頁內容是相當的方便。</p>
+</li>
+<li><p>可以使用複雜的查詢準則<br>文件儲存類型的資料庫與鍵值儲存類型不同，可以透過較複雜的查詢準則來取得資料，雖然不具備關聯式資料庫的 交易處理 與 JOIN 處理能力，但處此之外的處理基本上都能夠實現。如 MongoDB 可以在查詢指令中使用 JavaScript 進行查詢，CouchDB 則是除了可以使用Javescript 之外，甚至還提供一套RESTful API，讓應用程式可透過 HTTP 協定進行資料的查詢。</p>
+</li>
+</ul>
+<h3 id="圖學式儲存-graph-database"><a href="#圖學式儲存-Graph-Database" class="headerlink" title="圖學式儲存 (Graph Database)"></a><strong>圖學式儲存 (Graph Database)</strong></h3><p>這類型的資料庫不是指專門處理圖像的資料庫，而是指以圖學架構的概念儲存資料，基本的圖學資料包括了節點（Node）、關係（Relation）和屬性（Property）三種結構，透過樹狀結構、網狀結構的方式，將各節點之間的關係儲存幾來，特別適合用來儲存複雜的資料關係，如社群關係、地理圖資等等。常見的圖學資料庫如Neo4j、InfoGrid、AllegroGrph。</p>
+<h3 id="寬列儲存-wide-column-store-column-families"><a href="#寬列儲存-Wide-Column-Store-Column-Families" class="headerlink" title="寬列儲存 (Wide Column Store / Column Families)"></a><strong>寬列儲存 (Wide Column Store / Column Families)</strong></h3><p>這類的資料庫如 Cassandra、Hbase 和 HyperTable，與關聯式資料庫相反，是以列為單位來儲存資料，對大量行少數列進行讀取的情況與對所有特定列進行同時更新的情況有較高的優勢，其儲存資料的方式可以理解成一個三維的鍵值儲存 (Key-Value)，也就是Google 設計的 BigTable 模型，其中資料表內的資料是透過一個行關鍵字 (Row Key)、一個列關鍵字 (Column Key) 及一個時間戳記 (Time Stamp) 進行索引，其對儲存的資料不做任何解析，一律視為字串，實際資料結構的實現需要使用者自行處理。{BigTable儲存邏輯 (row:string, column:string, time:int64) -&gt; string ) }</p>
+<hr>
+<h3 id="註一"><a href="#註一" class="headerlink" title="# 註一"></a># 註一</h3><p><strong>NoSQL DB 的理論基礎 - CAP &amp; BASE</strong></p>
+<ul>
+<li><p>Consistency（一致性）<br>一致性是說資料的原子性，這種原子性在傳統 RDBMS 中是透過 Transaction 來保證的，當 Transaction 完成時，無論其是成功還是回滾，資料都會處於一致的狀態。在分散式環境中，一致性是說多個節點的資料是否一致。</p>
+</li>
+<li><p>Availability（可用性）<br>可用性是說服務能一直保證是可用的狀態，當使用者發出一個請求，服務能在有限時間內返回結果。</p>
+</li>
+<li><p>Partition Tolerance（分區容錯性）<br>Partition 是指網路的分區。可以這樣理解，一般來說，關鍵的資料和服務都會位於不同的 IDC 機房。</p>
+</li>
+</ul>
+<p><strong>ACID</strong><br>是指資料庫管理系統（DBMS）在寫入或更新資料的過程中，為保證事務（transaction）是正確可靠的，所必須具備的四個特性。<br>在資料庫系統中，一個事務是指：由一系列資料庫操作組成的一個完整的邏輯過程。例如銀行轉帳，從原帳戶扣除金額，以及向目標帳戶添加金額，這兩個資料庫操作的總和，構成一個完整的邏輯過程，不可拆分。這個過程被稱為一個事務，具有ACID特性。</p>
+<p>四個特性：</p>
+<ul>
+<li><p>原子性：<br>一個事務（transaction）中的所有操作，要麼全部完成，要麼全部不完成，不會結束在中間某個環節。事務在執行過程中發生錯誤，會被回滾（Rollback）到事務開始前的狀態，就像這個事務從來沒有執行過一樣。</p>
+</li>
+<li><p>一致性：<br>在事務開始之前和事務結束以後，資料庫的完整性沒有被破壞。這表示寫入的資料必須完全符合所有的預設規則，這包含資料的精確度、串聯性以及後續資料庫可以自發性地完成預定的工作。</p>
+</li>
+<li><p>隔離性：<br>資料庫允許多個並發事務同時對其數據進行讀寫和修改的能力，隔離性可以防止多個事務並發執行時由於交叉執行而導致數據的不一致。事務隔離分為不同級別，包括讀未提交（Read uncommitted）、讀提交（read committed）、可重複讀（repeatable read）和串行化（Serializable）。</p>
+</li>
+<li><p>持久性：<br>事務處理結束後，對數據的修改就是永久的，即便系統故障也不會丟失。</p>
+</li>
+</ul>
+<hr>
+<h3 id="結論"><a href="#結論" class="headerlink" title="# 結論"></a># 結論</h3><blockquote>
+<p>預先了解非關連式資料庫是如何運作的，才可知己知彼百戰百勝！</p>
+</blockquote>
+<p>不是只有大量資料的處理才會需要越到非關連式資料庫，了解兩種不同資料庫的特性之後，就可以針對情況來選擇適合的類型，使得資料在處理上更加簡單，</p>
+<p><strong><em>下篇將會介紹，Mongo DB !</em></strong></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Python 淺談多執行緒]]></title>
       <url>http://blog.30cm.net/2017/02/01/Python-%E6%B7%BA%E8%AB%87%E5%A4%9A%E5%9F%B7%E8%A1%8C%E7%B7%92-1/</url>
       <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>多執行緒的應用其實已經行之有年，且寫爬蟲或是自動化的程式時常常會使用到，但在讀 Thread 時常常會與 Process 給搞混，所以為了讓自己更加清楚地瞭解其中的差異，特此紀錄。</p>
