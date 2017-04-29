@@ -4,6 +4,111 @@
   
     
     <entry>
+      <title><![CDATA[Mongo DB 觀念備忘錄]]></title>
+      <url>http://blog.30cm.net/2017/04/29/Mongo-DB-%E8%A7%80%E5%BF%B5%E5%82%99%E5%BF%98%E9%8C%84/</url>
+      <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>本篇將討論非關聯式資料庫當中，屬於 Key-Value 型態資料庫的 MongoDB的一些概念</p>
+<h3 id="mongo-db-簡介"><a href="#Mongo-DB-簡介" class="headerlink" title="#Mongo DB 簡介"></a>#Mongo DB 簡介</h3><blockquote>
+<p>簡單的介紹一下 Mongo DB 的幾個特性</p>
+</blockquote>
+<p> 1.是一款近來頗為熱門的文件導向資料庫<span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Document-oriented Database</span><br>  概念大概是 : 一筆資料以不固定大小,不限制欄位多寡 儲存於表格內. 每個欄位尚可切分成更多子欄位.</p>
+<p>2.無限制的資料結構<span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Schema-Free </span><br> 不像關聯式資料庫一樣需要先制定欄位的內容，而可以隨時不固定的動態新增欄位</p>
+<p>3.基於 Bson 格式 <span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Based On Binary Json </span></p>
+<p>4.Organized in Group of Documents -&gt;Collections</p>
+<p>5.分布式儲存與可水平擴展 <span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Auto-Sharding in order to scale horizontally<br> </span> Mongo DB 將會把大量的資料自動的分布到底下的每一個儲存節點當中(分片)，以減少資料因容量過大的存取速度問題，也由於這個特性，使得原本需要透過擴充磁碟容量以增加資料庫存量的擴展方式，轉變成可通過儲存節點的水平擴張來擴大可以儲存的資料量。</p>
+<p>6.豐富的查詢語言、強大的一致性、豐富的索引<br> <span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Simple query language Rich, document-based queries </span></p>
+<p>7.讀寫快速<br>通過key-value形式存儲數據，相對於傳統資料庫在查找讀寫時通常遍歷整張表而言，以鍵值對存儲數據提高了對資料庫的讀寫速度。且 Index 資料都放在記憶體當中，速度更快!</p>
+<p>8.Open Source</p>
+<hr>
+<h4 id="與傳統-rdbms-的不同之處"><a href="#與傳統-RDBMS-的不同之處" class="headerlink" title="# 與傳統 RDBMS 的不同之處"></a># 與傳統 RDBMS 的不同之處</h4><ul>
+<li><p>不支援 Transactions <span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> 注一</span><br>原先設計就是屬於弱一致性</p>
+</li>
+<li><p>不支援 Join</p>
+</li>
+<li>因採用 Key-Value 的儲存架構，所以相同的 key值無法存在同一份 Document 當中，每一份Document 新增時，會新增一個唯一的 ID 作為辨識。</li>
+</ul>
+<p><strong>與RDBMS的對應</strong></p>
+<p><img src="https://lh3.googleusercontent.com/-_yXTCOPDrZo/WQGtHeZ6gvI/AAAAAAAAAI8/oTuFFtCOEeUG9FdO6x40MryWyZkPwLuqwCLcB/s0/%25E6%259C%25AA%25E5%2591%25BD%25E5%2590%258D.png" alt=""></p>
+<p><strong>Collection 與 Document</strong></p>
+<ul>
+<li>同一份 Collection 可以包含多個 Document</li>
+<li>同一個 Collection 當中，不同Document中的Key可以相同</li>
+<li>同一個 Document 當中， Key不可以相同</li>
+</ul>
+<h4 id="mongodb-定義上的極限"><a href="#MongoDB-定義上的極限" class="headerlink" title="# MongoDB 定義上的極限"></a># MongoDB 定義上的極限</h4><p><img src="https://lh3.googleusercontent.com/-lkX41qZiVK8/WQG8eju3uJI/AAAAAAAAAJc/mFWXskspZt8LJlaHpDmcs3OsSLYuoIRZwCLcB/s0/1.png" alt="" title="1.png"></p>
+<h3 id="mongo-db-深入介紹"><a href="#Mongo-DB-深入介紹" class="headerlink" title="#Mongo DB 深入介紹"></a>#Mongo DB 深入介紹</h3><blockquote>
+<p>在對Mongo DB 有一點粗淺的了解之後，就來深入介紹他的運作方式吧 !</p>
+</blockquote>
+<p>我們要從最重要的特性分片(sharding)，開始介紹起，原因是分片是MongoDB 在架構上與原本的RDBMS架構最大的不同點，原本的RDBMS原生的儲存特性是不易水平擴張，也就是說一個大資料庫要儲存所有的資料，而Mongo DB卻可以再多台機器間分配資料儲存在哪，也稱為分片(sharding)。</p>
+<p>傳統的資料庫對於，具有巨量資料或者是高吞吐量 ( Throughput)，將會非常挑戰單一台伺服器的強度，例如高頻率的查詢可能會耗盡伺服器的 CUP使用率，大於系統 RAM 大小的資料查詢會影響查詢速度等等….</p>
+<p>為了解決系統使用量與資料量的增長，方法有兩種:</p>
+<ul>
+<li>垂直擴張</li>
+<li>水平擴張</li>
+</ul>
+<p><strong>垂直擴張</strong><br>是依靠使用更強大的 CUP 或是增加更多的 RAM 或儲存空間來執行，簡單的說，單一個硬體是具有上限的，垂直擴張不可能無限擴展。</p>
+<p><strong>水平擴張</strong><br>涉及將系統的資料和負載劃分到多台伺服器上面，也就是說如果有一天資料量變大，查詢量變多的話，只需要再多買幾台機器就可以解決了。(優點是單台機器的整體速度或容量可能不高，每台機器處理整體工作的一部分，可能提供比單個高速大容量的機器更好的服務效率，但缺點是，基礎設施與部屬的成本較高，維護較複雜)</p>
+<p><span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> MongoDB 就是以分片來執行水平擴張的</span> </p>
+<p>以下我們會依照<a href="https://docs.mongodb.com/manual/sharding/" target="_blank" rel="external">官網</a>的幾個圖，來清楚的說明 MongoDB 的分片(sharding) :</p>
+<ul>
+<li>分片：每個分片包含分片資料的一部分。每個分片可以部署為 replica set.。</li>
+<li>Mongos：mongos 作為查詢路由器，提供需要服務的應用程式和分片集群之間的接口。</li>
+<li>config servers : config servers 配置資料要存去哪一個 replica set.。</li>
+</ul>
+<p><img src="https://lh3.googleusercontent.com/-bvnYbeEysZQ/WQK-62gyZeI/AAAAAAAAAEo/9dahpaKXAko20LgRaWYUCq17aeAipxdZgCLcB/s0/sharded-cluster-production-architecture_bakedsvg.jpg" alt="enter image description here" title="sharded-cluster-production-architecture_bakedsvg.jpg"></p>
+<p>當有任何使用者或應用程式想要對 Mongo DB 作操作時，是透過 Mongos 來進行連接的，Mongos 通常由多個實體組成，可分散附載，保持較高的可用性，而對於使用者或者應用程式而言，並不需要知道 Sharding 怎麼運作的，他們看到的只是一個資料庫，所以使用上基本不會有太大的差別，雖然每一個 Shard 都是由一個 mongod 或<span style=" border: 0px;color: #fff;background: #f44336; border: 1px solid #f44336;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> Replica Set </span> (注二) 構成，但如果沒有透過 mongos (Router) 進行連線操作，而直接對 Shard 進行連線，那麼你看到 Collection 的資料就不會是完整的集合，而只是單一個 Shard 的資料。那麼 Cluster 是如何分配資料呢，這裡有一個很重要的角色，就是 Config Server。</p>
+<p><strong>Config Server</strong><br>Config Server 是 MongoDB 分片架構( Sharding )當中，很重要的一環，它存放著資料的 Metadata (為描述其他資料資訊的資料)，其中包含著透過 Shard Key 所計算出來的引索資料，這些引索資料記錄著每一個資料所存放的 Shard 位置，可以讓負責 Router 的 Mongos 可以正確的 Query 資料， 如果沒有這些引索資料那每個存放資料的區域(Shard)就只能獨立存放資料，無法協同工作了 ! 通常為了避免 單只有單一台Config Server 壞了，會無法正確的 Query 資料，通常在部屬時會需要多台機器。</p>
+<p><strong>Data Partitioning 機制</strong><br>為了在分散式的架構中，快速方便的儲存以及搜尋資料，我們必須建立一個引索 (Index)來管理檔案，首先將 Document 某一個欄位定義為 Shard Key，然後透過 <strong>Range Based Partitioning</strong> 或 <strong>Hash Based Partitioning</strong> 其中一中方式將資料分配到 <strong>Chunks</strong> 中 (每個 Chunks 預設大小為 64MB)，最後才將 Chunks 分散到不同的 Shard 上。接下來我們先看看兩種不同的切割資料的機制：</p>
+<ul>
+<li><strong>Range Based Sharding</strong></li>
+</ul>
+<p>這種方式就是將 Document Shard Key 欄位的值，以線性的方式進行分群，透過 Range 範圍進行切割，相近的值理所當然會被分到同一個 Chunk 中，Chunk 分配的情況會直接受到 Range 的影響（比如某一段 Range 出現頻率高，Chunk 資料就比較大）。用這種方法我們必須考慮 Shard Key 的範圍，如下所示：</p>
+<p><img src="https://lh3.googleusercontent.com/oqwTETBRxmBXaO8UsD9Yr4XW2_uk1OwDcizO3DdJLIO-xGsZeqjyBv_EvKTz_-fcmSQJBhs=s0" alt="enter image description here" title="sharding-range-based.png"></p>
+<ul>
+<li><strong>Hash Based Sharding</strong></li>
+</ul>
+<p>這種方法顧名思義就是透過 Hash 將我們指定的 Shard Key 欄位進行雜湊，這樣的方式資料比較容易分散到每個 Shard 中，如果資料分不足夠，佔用空間的分配也會比較平均。如下：</p>
+<p><img src="https://lh3.googleusercontent.com/ws8URVIl_dSlCKMho5nfqJMqnFZaiN24zUcyhgADXJv2uCt_3YuXJcwcci0f1GEgNz1xAi8=s0" alt="enter image description here" title="sharding-hash-based.png"></p>
+<p>比較一下兩種方法，Range Based 實際在 Query 時，Router 可以很輕易地判斷資料的位置，然後正確地派送運算到所屬的 Shard 上。但如果要查詢的資料片段大小差異過高，且又分散在不同的 Shard 上，查詢必定會「等待」其他 Shard 處理的情況產生。來看看 Hash Based，Shard Key 透過 Hash 計算後，很容易分散在不同的 Chunk，資料分散性佳，擴充也比較容易。但是在 Query 時就必須要經過比較多的 Shard 計算，才能由 Router 返回最後的結果。兩種方法各有利弊，可以依照實際的應用情況選用。</p>
+<hr>
+<blockquote>
+<p><span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> 注一</span> 什麼是Database Transaction</p>
+</blockquote>
+<ul>
+<li>一組 Transaction<br>就是<strong>一組</strong> 一連串對資料庫進行 Read 和 Write 的動作</li>
+</ul>
+<p>資料庫的操作 Insert、Update、Delete 都算在 Write 的範疇當中，一個transaction只有2種結局</p>
+<p> 1.全部SQL執行成功 -&gt; commit;<br> 2.只要有一個SQL失敗 -&gt; rollback; </p>
+<p>以 MySql 為例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">insert into member ( account, englishName, chineseName) values ( &apos;anrry9876&apos;, &apos;daniel&apos;, &apos;不為繁華易匠心&apos;);</div><div class="line">update member set englishName = &apos;Alex&apos; where account =&apos;anrry9876&apos;;</div></pre></td></tr></table></figure>
+<p>以上面這個例子來說，這個 Transaction 包含2個動作，一個Insert，一個Update，兩個動作都成功之後就是一個完整的Transaction。</p>
+<p>Transaction如果不是裡面SQL全部執行成功，然後將執行結果提交給資料庫 –&gt; 也就是Commit，不然只要裡面SQL只要有一個失敗，就要把前面做過的事情全部還原當作什麼都沒發生過 –&gt; 這就是rollback<br>詳情請參照<a href="http://karenten10-blog.logdown.com/posts/192629-database-transaction-1-acid" target="_blank" rel="external">白話文解釋</a></p>
+<hr>
+<blockquote>
+<p><span style=" border: 0px;color: #41bf0c;background: #272329;    border: 1px solid #272329;border-radius: 4px;padding: 2px 5px;margin: 0 1px;"> 注二 </span> 什麼是Replica Set</p>
+</blockquote>
+<p>主要是提供資料庫及時映射的副本，也就是說在主要服務的資料庫發生異常時，可以接手工作，同時還兼具資料備援的功能，或是也可以用來進行查詢，最後當資料已經大到一定的程度之後，使用傳統的 Dump 工具已經很難完成任務，資料備援就可以靠 Replication 來完成任務。</p>
+<p>官方有提供三種 Replica Set 架構 (Pattern)，如下：</p>
+<ul>
+<li>Three Member Replica Sets<br>[最常採用的架構]</li>
+<li>Replica Sets with Four or More Members<br>[備援能力較強]</li>
+<li>Geographically Distributed Replica Sets<br>[可滿足一地輩分的要求]</li>
+</ul>
+<p>今天來介紹 MongoDB 最典型的副本架構Three Member Replica Sets</p>
+<p>主要由三個節點構成，如下：</p>
+<p><img src="https://lh3.googleusercontent.com/-dY8-UeamWNg/WQQbiB5UqQI/AAAAAAAAAF8/VZW4EeKbAp4yfpaDL6d2jP3srAqLYYjAwCLcB/s0/replica-set-read-write-operations-primary.png" alt="" title="replica-set-read-write-operations-primary.png"></p>
+<p>正常的情況下對於 Primary 節點進行讀寫，資料會自動複製 (Replication) 到另外兩組 Secondary 節點，這些節點彼此透過 Heartbeat (每隔一段時間試探節點是否存活的方式) 檢測狀態，正常的情況每 2 秒會送出 Heartbeat，若是超過 10 秒沒有回覆，那就代表節點已經不可以使用。如下：</p>
+<p><img src="https://lh3.googleusercontent.com/-M97KUw7lA9k/WQQbmHEBz8I/AAAAAAAAAGE/C8YgA25B2pobCKQKlk9Ov9Tqp4YLX8YjACLcB/s0/replica-set-trigger-election.png" alt="" title="replica-set-trigger-election.png"></p>
+<p>當主要連線的節點發生故障時，會選出一台 Secondary 成為 Primary 接手工作，這樣的能力稱為 Automatic Failover，如下：</p>
+<p><img src="https://lh3.googleusercontent.com/-QMWphJWwj1A/WQQbq99Mq2I/AAAAAAAAAGM/8_USMdjZ-SwFq749NDjYtRw6a5n34zEvwCLcB/s0/replica-set-primary-with-two-secondaries.png" alt="enter image description here" title="replica-set-primary-with-two-secondaries.png"></p>
+<p>因此在 Replica Set 架構下，Application 連線的主機位置會設定到所有節點的位置 (一組 Host)，由 Driver 自行控制連線的行為，程式邏輯不需要特別處理什麼，蠻方便的。</p>
+<h3 id="結語"><a href="#＃結語" class="headerlink" title="＃結語"></a>＃結語</h3><blockquote>
+<p>這是一個備忘錄，資料是從網路上整理來的，為了是提高個人對於Mongo DB更深入一層的了解，希望路過的高手批評指教</p>
+</blockquote>
+<p>然後下一篇會記錄實mongo db作的部分</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[淺談 SQL 與 NoSQL]]></title>
       <url>http://blog.30cm.net/2017/04/21/%E6%B7%BA%E8%AB%87NoSQL/</url>
       <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>為了完成我在2017年的年度挑戰 =&gt; 製作智慧語音助手，所以需要自製一個聊天機器人 <b> ChatBot </b> ，而我所選的聊天機器人是配合 Python 使用的<a href="https://github.com/gunthercox/ChatterBot" target="_blank" rel="external">Chatterbot</a>  ，為了使機器人可以接受大量資料的訓練，而需要接觸到  MongoDB ，那廢話不在多說，我們就先從 NoSQL 開始談起吧！</p>
